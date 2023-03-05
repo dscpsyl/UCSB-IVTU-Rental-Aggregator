@@ -19,8 +19,11 @@ a seperate address with the following structure:
     "beds" :  "2",
     "baths" : "2",
     "tenants" : "4",
-    "rent" : ["1000", "1500.87"],
-    "date" : ["12-23-1997", "01-03-2018"]
+    "history" : {
+        //date : price
+        "12/20/05" : "1050",
+        "01/28/19" : "2400.78",
+    }
 }
 ```
 
