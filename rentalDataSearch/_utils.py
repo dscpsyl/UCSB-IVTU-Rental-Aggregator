@@ -18,7 +18,7 @@ class RentalCompany:
         
         self.data = []
     
-    def dataSet(self, data: list) -> None:
+    def setData(self, data: list) -> None:
         """ Gives the user the ability to set the data of the instance. It will check that the data format has
         the correct shape and nothing else. USE WITH CAUTION.
         
@@ -123,7 +123,7 @@ class DatabaseConnectionMongoDB:
             
             return self.__client.list_database_names()
     
-    def databasesList(self) -> list:
+    def listDatabases(self) -> list:
         """Returns a list of all the databases in the mongoDB server.
         
         Returns:
@@ -148,7 +148,7 @@ class DatabaseConnectionMongoDB:
         
         self.__collection = self.__database[collection]
     
-    def collectionsList(self) -> list:
+    def listCollections(self) -> list:
         """Returns a list of all the collections in the mongoDB server.
         
         Returns:

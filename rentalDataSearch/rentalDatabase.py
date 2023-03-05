@@ -17,7 +17,7 @@ class RentHistoryData(DatabaseConnectionMongoDB):
         super().__init__(user, pw, server)
         super().setDatabase(dataBase)
         
-    def company(sef, company: str) -> None:
+    def setCompany(sef, company: str) -> None:
         """Sets the collection to the company name. This is used to get the data for a specific company.
 
         Args:
