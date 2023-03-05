@@ -6,7 +6,7 @@ to a website is made, the aggregator might need to be updated.
 
 The data is stored in a mongoDB database that is persistent and can only be accessed by this 
 application with the correct credentials. The data can be requested by the application and
-sent via a history class.
+sent via a history class. Currently, it uses [MongoDB Atlas](https://cloud.mongodb.com/v2/) for development.
 
 ## Current Sites
 

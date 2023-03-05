@@ -1,8 +1,13 @@
 # Definitions that are used by the dataSearch module
 from .Errors import InvalidDataShapeReceived
 import pandas as pd
+import pymongo as pm
 
 class RentalCompany:
+    """The base class for all rental companies. It is used to store the data of the rental companies and provide
+    data functions to the user.
+    """
+    
     def __init__(self) -> None:
         self.data = []
         pass
@@ -47,3 +52,39 @@ class RentalCompany:
         d = pd.DataFrame(self.data, columns=_c).set_index(pd.Index(_i))
 
         return d
+
+class DatabaseConnectionMongoDB:
+    """This is the base class for all database connections. It provides basic functions for database connection, interaction,
+    and extractions. It works only with a mongoDB and assumes you are using SCRAM auth with connection link connection method. It is 
+    not meant to be used directly.
+    """
+    
+    def __init__(self, user: str, pw: str, server: str) -> None:
+        """Connects to a mongoDB database using SCRAM and connection string.
+
+        Args:
+            user (str): mongoDB username
+            pw (str): mongoDB password
+            server (str): mongoDB server address
+        """
+        _clientURL = "mongodb+srv://" + user + ":" + pw + "@" + server + "/?retryWrites=true&w=majority"
+        self.client = pm.MongoClient(_clientURL)
+    
+
+    def connection(self) -> pm.MongoClient:
+        """Returns the mongoDB client connection.
+        
+        Returns:
+            (pm.MongoClient): The mongoDB client connection.
+        """
+        return self.client
+        
+
+class RentHistoryData(DatabaseConnectionMongoDB):
+    """This class is used to grab rent history data from the database. It assumes that the database is a mongoDB.
+    
+    Args:
+    
+    """
+    
+    
