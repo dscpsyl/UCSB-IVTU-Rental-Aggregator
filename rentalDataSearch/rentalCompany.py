@@ -1,5 +1,3 @@
-# https://www.beachtownrentals.com/properties
-
 from .Errors import UnexpectedDataGetAction
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -9,8 +7,8 @@ from datetime import datetime
 import shutil
 from ._utils import RentalCompany
 
-
-class Beachtownrentals(RentalCompany):
+# https://www.beachtownrentals.com/properties
+class BeachTownRentals(RentalCompany):
 
     def dataUpdate(self) -> None:
         """Updates the data from the webpage. It uses the webpage screenshot and OCR. This requires an internet connection and may not 
@@ -61,4 +59,3 @@ class Beachtownrentals(RentalCompany):
         shutil.rmtree("env/beachtownrentals")
         
         self.data = data
-        
