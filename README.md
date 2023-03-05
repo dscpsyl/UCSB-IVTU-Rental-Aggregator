@@ -4,5 +4,5 @@ Data aggregator for IV / Goleta / Santa Barbara / UCSB (CA, USA) rentals from ma
 The only problem is that some method of aggregation is not completely fool-proof. If an upate
 to a website is made, the aggregator might need to be updated.
 
-Currently the following sites are in developnment:
+Currently the following sites are in development:
 * [Beach Town Rentals](https://www.beachtownrentals.com/)
