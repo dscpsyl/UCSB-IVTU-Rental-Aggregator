@@ -78,13 +78,7 @@ class DatabaseConnectionMongoDB:
             (pm.MongoClient): The mongoDB client connection.
         """
         return self.client
-        
-
-class RentHistoryData(DatabaseConnectionMongoDB):
-    """This class is used to grab rent history data from the database. It assumes that the database is a mongoDB.
     
-    Args:
     
-    """
     
     

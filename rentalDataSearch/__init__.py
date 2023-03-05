@@ -3,5 +3,5 @@
 # Rental Company | Address | Bed | Bath | Tenants | Rent | Date Scanned
 # More infromation in each class file.
 
-__all__ = ["beachtownrentals"]
+__all__ = ["beachtownrentals", "rentalDatabase"]
 
