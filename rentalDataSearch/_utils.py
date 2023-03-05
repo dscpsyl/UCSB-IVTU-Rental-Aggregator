@@ -1,10 +1,20 @@
 # Definitions that are used by the dataSearch module
 import pandas as pd
 
-class Property:
+class RentalCompany:
     def __init__(self) -> None:
         self.data = []
         pass
+    
+    def dataSet(self, data: list) -> None:
+        """ Gives the user the ability to set the data of the instance. THIS FUNCTION DOES NOT
+        CHECK FOR THE CORRECT DATA FORMAT. USE WITH CAUTION.
+        
+        args:
+            data (list(list(str))): The raw data of properties that needs to be stored.
+
+        """    
+        self.data = data
     
     def dataGetRaw(self) -> list:
         """ Returns the raw data of the instance.

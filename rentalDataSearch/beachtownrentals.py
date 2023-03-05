@@ -7,10 +7,10 @@ from table_ocr import extract_tables, extract_cells, ocr_image, ocr_to_csv
 import os
 from datetime import datetime
 import shutil
-from ._utils import Property
+from ._utils import RentalCompany
 
 
-class Beachtownrentals(Property):
+class Beachtownrentals(RentalCompany):
 
     def dataUpdate(self) -> None:
         """Updates the data from the webpage. It uses the webpage screenshot and OCR. This requires an internet connection and may not 
