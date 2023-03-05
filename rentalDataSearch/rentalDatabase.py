@@ -9,4 +9,19 @@ class RentHistoryData(DatabaseConnectionMongoDB):
     
     """
     def __init__(self, user: str, pw: str, server: str) -> None:
+        """Creates the instance of the class connected to the rental-data database.
+
+        Args:
+            See _utils.DatabaseConnectionMongoDB for args.
+        """
         super().__init__(user, pw, server)
+        super().setDatabase("rental-data")
+        
+    def company(sef, company: str) -> None:
+        """Sets the collection to the company name. This is used to get the data for a specific company.
+
+        Args:
+            company (str): The name of the company to get the data for.
+        """
+        super().setCollection(company)
+    
