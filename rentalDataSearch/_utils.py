@@ -96,18 +96,6 @@ class DatabaseConnectionMongoDB:
         """
         _clientURL = "mongodb+srv://" + user + ":" + pw + "@" + server + "/?retryWrites=true&w=majority"
         self.__client = pm.MongoClient(_clientURL)
-
-    def connection(self) -> pm.MongoClient:
-        """Returns the mongoDB client connection. Safety checks to makes sure there is a connection first.
-        
-        Returns:
-            (pm.MongoClient): The mongoDB client connection.
-        """
-        
-        if self.__client == None:
-            raise Exception("Error:: _utils.DatabaseConnectionMongoDB tried to retrieve a connection but there is none.")
-        
-        return self.__client
     
     def setDatabase(self, db: str) -> None:
         """Sets the desired db of the class instance. Safety checks to make sure that the databse exists.
@@ -126,6 +114,24 @@ class DatabaseConnectionMongoDB:
         
         self.__database = self.__client[db]
     
+        def databasesList(self) -> list:
+            """Returns a list of all the databases in the mongoDB server.
+            
+            Returns:
+                (list(str)): A list of all the databases in the mongoDB server.
+            """
+            
+            return self.__client.list_database_names()
+    
+    def databasesList(self) -> list:
+        """Returns a list of all the databases in the mongoDB server.
+        
+        Returns:
+            (list(str)): A list of all the names of the databases in the mongoDB server.
+        """
+        
+        return self.__client.list_database_names()
+        
     def setCollection(self, collection: str) -> None:
         """Sets the desired collection of the class instance. Safety checks to make sure that the collection exists.
         
@@ -142,16 +148,16 @@ class DatabaseConnectionMongoDB:
         
         self.__collection = self.__database[collection]
     
-    def newDatabase(self, db: str) -> None:
-        """Creates a new database in the mongoDB server.
+    def collectionsList(self) -> list:
+        """Returns a list of all the collections in the mongoDB server.
         
-        Args:
-            db (str): The name of the database to be created.
+        Returns:
+            (list(str)): A list of all the names of the collections in the mongoDB server.
         """
         
-        self.__database = self.__client[db]
+        return self.__database.list_collection_names()
     
-    def newCollection(self, collection: str) -> None:
+    def createCollection(self, collection: str) -> None:
         """Creates a new collection in the mongoDB server.
         
         Args:
@@ -160,3 +166,11 @@ class DatabaseConnectionMongoDB:
         
         self.__collection = self.__database[collection]
     
+    def getCollection(self) -> pm.collection:
+        """Returns the collection of the class instance.
+        
+        Returns:
+            (pymongo.collection): The collection of the class instance.
+        """
+        
+        return self.__collection
