@@ -6,6 +6,7 @@ import pymongo as pm
 class RentalCompany:
     """The base class for all rental companies. It is used to store the data of the rental companies and provide
     data functions to the user.
+    
     """
     
     def __init__(self) -> None:
@@ -69,20 +70,22 @@ class DatabaseConnectionMongoDB:
     """
     
     def __init__(self, user: str, pw: str, server: str) -> None:
-        """Connects to a mongoDB database using SCRAM and connection string.
+        """Connects to a mongoDB database using SCRAM and connection string. It will store, for each instance the:
+            - mongoDB client connection
+            - mongoDB database
+            - mongoDB collection
+            
 
         Args:
             user (str): mongoDB username
             pw (str): mongoDB password
             server (str): mongoDB server address
         """
-        try:
-            _clientURL = "mongodb+srv://" + user + ":" + pw + "@" + server + "/?retryWrites=true&w=majority"
-            self.__client = pm.MongoClient(_clientURL)
-        except Exception as e:
-            self.__client = None
-            print("Error:: _utils.DatabaseConnectionMongoDB could not connect to database on initialization.: ", e)
-    
+        _clientURL = "mongodb+srv://" + user + ":" + pw + "@" + server + "/?retryWrites=true&w=majority"
+        self.__client = pm.MongoClient(_clientURL)
+        self.__database = None
+        self.__collection = None
+  
     def newConnection(self, user: str, pw: str, server: str) -> None:
         """Creates a new connection to a mongoDB database using SCRAM and connection string.
 
@@ -91,12 +94,8 @@ class DatabaseConnectionMongoDB:
             pw (str): mongoDB password
             server (str): mongoDB server address
         """
-        try:
-            _clientURL = "mongodb+srv://" + user + ":" + pw + "@" + server + "/?retryWrites=true&w=majority"
-            self.__client = pm.MongoClient(_clientURL)
-        except Exception as e:
-            self.__client = None
-            print("Error:: _utils.DatabaseConnectionMongoDB could not connect to database.: ", e)
+        _clientURL = "mongodb+srv://" + user + ":" + pw + "@" + server + "/?retryWrites=true&w=majority"
+        self.__client = pm.MongoClient(_clientURL)
 
     def connection(self) -> pm.MongoClient:
         """Returns the mongoDB client connection. Safety checks to makes sure there is a connection first.
@@ -110,6 +109,54 @@ class DatabaseConnectionMongoDB:
         
         return self.__client
     
+    def setDatabase(self, db: str) -> None:
+        """Sets the desired db of the class instance. Safety checks to make sure that the databse exists.
+        
+        Args:
+            db (str): The name of the database to be used.
+            
+        Raises:
+            Exception: Will raise if the requested database does not exist.
+            
+        """
+        
+        _availableDBs = self.__client.list_database_names()
+        if db not in _availableDBs:
+            raise Exception("Error:: _utils.DatabaseConnectionMongoDB tried to set the database to " + db + " but it does not exist. Please use DatabaseConnectionMongoDB.newDatabase to create a new databaase first.")
+        
+        self.__database = self.__client[db]
     
+    def setCollection(self, collection: str) -> None:
+        """Sets the desired collection of the class instance. Safety checks to make sure that the collection exists.
+        
+        Args:
+            collection (str): The name of the collection to be used.
+        
+        Raises:
+            Exception: Will raise if the requested collection does not exist.
+        """
+        
+        _availableCollections = self.__database.list_collection_names()
+        if collection not in _availableCollections:
+            raise Exception("Error:: _utils.DatabaseConnectionMongoDB tried to set the collection to " + collection + " but it does not exist. Please use DatabaseConnectionMongoDB.newCollection to create a new collection first.")
+        
+        self.__collection = self.__database[collection]
     
+    def newDatabase(self, db: str) -> None:
+        """Creates a new database in the mongoDB server.
+        
+        Args:
+            db (str): The name of the database to be created.
+        """
+        
+        self.__database = self.__client[db]
+    
+    def newCollection(self, collection: str) -> None:
+        """Creates a new collection in the mongoDB server.
+        
+        Args:
+            collection (str): The name of the collection to be created.
+        """
+        
+        self.__collection = self.__database[collection]
     
