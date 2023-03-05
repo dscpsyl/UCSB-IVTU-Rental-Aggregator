@@ -1,4 +1,5 @@
 # Definitions that are used by the dataSearch module
+from .Errors import InvalidDataShapeReceived
 import pandas as pd
 
 class RentalCompany:
@@ -7,13 +8,21 @@ class RentalCompany:
         pass
     
     def dataSet(self, data: list) -> None:
-        """ Gives the user the ability to set the data of the instance. THIS FUNCTION DOES NOT
-        CHECK FOR THE CORRECT DATA FORMAT. USE WITH CAUTION.
+        """ Gives the user the ability to set the data of the instance. It will check that the data format has
+        the correct shape and nothing else. USE WITH CAUTION.
         
         args:
             data (list(list(str))): The raw data of properties that needs to be stored.
+            
+        raises:
+            InvalidDataReceived: Will raise if the data is not in the correct format.
 
         """    
+        
+        for r in data:
+            if len(r) != 7:
+                raise InvalidDataShapeReceived(r)
+        
         self.data = data
     
     def dataGetRaw(self) -> list:
