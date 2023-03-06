@@ -21,3 +21,18 @@ rDataDB.setCompany("BeachTownRentals")
 rHistoryDB.setCompany("BeachTownRentals")
 rDataDB.insertListOfDataEntry(rentalPropData)
 rHistoryDB.insertListOfDataEntry(rentalRentHist)
+
+#####################~[Dean Brunner]~#####################
+print("Getting data from Dean Brunner...")
+db = rentalCompany.DeanBrunner()
+db.updateData()
+print("#"*100)
+print(db)
+print("#"*100)
+
+print("Setting data for Dean Brunner...")
+rentalPropData, rentalRentHist = db.getDBData()
+rDataDB.setCompany("DeanBrunner")
+rHistoryDB.setCompany("DeanBrunner")
+rDataDB.insertListOfDataEntry(rentalPropData)
+rHistoryDB.insertListOfDataEntry(rentalRentHist)
