@@ -19,6 +19,16 @@ class RentalCompany:
         self.data = []
         self.__propertyData = []
         self.__propertyRentHistory = []
+        
+    def updateData(self) -> None:
+        """Updates the data from the webpage. It uses the webpage screenshot and OCR. This requires an internet connection and may not 
+        always work due to the nature of OCR.
+
+        Raises:
+            UnexpectedDataGetAction: Will raise if a safety check fails.
+            
+        """
+        pass
     
     def __repr__(self) -> str:
         """ Returns the raw data of the instance.
