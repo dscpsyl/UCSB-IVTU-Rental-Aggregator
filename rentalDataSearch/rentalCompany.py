@@ -6,19 +6,64 @@ import os
 from datetime import datetime
 import shutil
 from ._utils import RentalCompany
+from bs4 import BeautifulSoup as bs
+import requests
+
+# https://www.deanbrunner.com/property-listings/
+class DeanBrunner(RentalCompany):
+    
+    def updateData(self) -> None:
+        """Overloads from baseclass 
+        """
+        
+        # Grab the html of the page from the website and select the table
+        _URL = "https://www.deanbrunner.com/property-listings/"
+        soup = bs(requests.get(_URL).content, "html.parser")
+        table = soup.find(id="property_list")
+        
+        # Select only the properties from the table and get the raw data
+        p = table.select("[style='background-color:#FFF'], [style='background-color:#EDEDED']")
+        propsRAW = []
+        for h in p: # h is each row (aka one property)
+            hData = []
+            i = 0
+            for l in h: # l is each cell in the row
+                if i > 3: # we only want the first 4 cells with text
+                    break
+
+                if l.text == "" or l.text == " " or l.text == "\n": # if the cell is empty and used for formatting
+                    continue
+            
+                hData.append(l.text)
+                i += 1
+            propsRAW.append(hData)
+
+        # Format the data
+        data = []
+        for p in propsRAW: # [Address | Bed/Bath | Tenants | Rent]
+            entry = []
+            time = datetime.now().strftime("%m/%d/%Y,%H:%M:%S")
+            # [Rental Company | Address | Bed | Bath | Tenants | Rent | Date Scanned]
+            entry.append("Dean Brunner")
+            entry.append(p[0])
+            entry.append(p[1][0])
+            entry.append(p[1][2])
+            entry.append(p[2])
+            entry.append(p[3])
+            entry.append(time)
+            
+            data.append(entry)
+        
+        self.data = data
+        super()._dataToDocFormat() 
 
 # https://www.beachtownrentals.com/properties
 class BeachTownRentals(RentalCompany):
 
     def updateData(self) -> None:
-        """Updates the data from the webpage. It uses the webpage screenshot and OCR. This requires an internet connection and may not 
-        always work due to the nature of OCR.
-
-        Raises:
-            UnexpectedDataGetAction: Will raise if OCR somehow extracts more than one table from the screenshot.
+        """Overloads from baseclass
             
         """
-        
         
         # Set up the driver
         _URL = "https://www.beachtownrentals.com/properties"
@@ -59,4 +104,4 @@ class BeachTownRentals(RentalCompany):
         shutil.rmtree("env/beachtownrentals")
         
         self.data = data
-        super()._dataToDocFormat()
+        super()._dataToDocFormat()        
