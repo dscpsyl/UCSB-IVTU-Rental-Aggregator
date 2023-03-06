@@ -255,3 +255,29 @@ class DatabaseConnectionMongoDB:
         """
         
         self.__collection.insert_one(document)
+        
+    def _replaceOneDocument(self, search: dict, update: dict) -> None:
+        """Replaces a single document in the collection.
+        
+        Args:
+            search (dict): The search query to find the document.
+            update (dict): The update query to update the document.
+            
+        Raises:
+            Exception: Will raise if the update query does not update exactly one document.
+        """
+        
+        self.__collection.find_one_and_replace(search, update)
+        
+    def _updateOneDocument(self, search: dict, update: dict) -> None:
+        """Updates a single document in the collection.
+        
+        Args:
+            search (dict): The search query to find the document.
+            update (dict): The update query to update the document.
+            
+        Raises:
+            Exception: Will raise if the update query does not update exactly one document.
+        """
+        
+        self.__collection.find_one_and_update(search, update)
