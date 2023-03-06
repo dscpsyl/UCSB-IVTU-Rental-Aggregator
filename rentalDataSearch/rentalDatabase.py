@@ -28,7 +28,7 @@ class RentHistoryData(DatabaseConnectionMongoDB):
         try:
             super()._setCollection(company)
         except:
-            print("DEBUG:: No existing collection for this company found. Creating new collection for " + company)
+            print("DEBUG:: (rentalDatabase.RentHistoryData) No existing collection for this company found. Creating new collection for " + company)
             super()._createCollection(company)
             super()._setCollection(company)  
     
