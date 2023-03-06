@@ -59,3 +59,4 @@ class BeachTownRentals(RentalCompany):
         shutil.rmtree("env/beachtownrentals")
         
         self.data = data
+        super()._dataToDocFormat()
