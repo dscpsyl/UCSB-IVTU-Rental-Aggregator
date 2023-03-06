@@ -40,6 +40,10 @@ for better "performance". Each document in the collection is a seperate address 
     }
 }
 ```
+
+If a certain field is not found in the aggregation, it will be set to a string of -1. This is to make it easier to
+parse the data later on.
+
 For security, any changes to the DB structure will be made outside of the program and the program itself will never be given 
 the option to change the structure of the DB. It can only read the structure and write documents, and create clusters to the DB.
 
