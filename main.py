@@ -15,6 +15,8 @@ print("#"*100)
 print(btr)
 print("#"*100)
 
+input(f"Please validate the data for formatting. If something does not look right, ABORT, FIX, and then rerun. Press enter to continue...")
+
 print("Setting data for Beach Town Rentals...")
 rentalPropData, rentalRentHist = btr.getDBData()
 rDataDB.setCompany("BeachTownRentals")
@@ -30,6 +32,8 @@ print("#"*100)
 print(db)
 print("#"*100)
 
+input(f"Please validate the data for formatting. If something does not look right, ABORT, FIX, and then rerun. Press enter to continue...")
+
 print("Setting data for Dean Brunner...")
 rentalPropData, rentalRentHist = db.getDBData()
 rDataDB.setCompany("DeanBrunner")
@@ -44,6 +48,8 @@ spa.updateData()
 print("#"*100)
 print(spa)
 print("#"*100)
+
+input(f"Please validate the data for formatting. If something does not look right, ABORT, FIX, and then rerun. Press enter to continue...")
 
 print("Setting data for Studio Plaza Apartments...")
 rentalPropData, rentalRentHist = spa.getDBData()
