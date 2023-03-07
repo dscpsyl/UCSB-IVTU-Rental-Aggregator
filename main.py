@@ -36,3 +36,18 @@ rDataDB.setCompany("DeanBrunner")
 rHistoryDB.setCompany("DeanBrunner")
 rDataDB.insertListOfDataEntry(rentalPropData)
 rHistoryDB.insertListOfDataEntry(rentalRentHist)
+
+#####################~[Studio Plaza Apartments]~#####################
+print("Getting data from Studio Plaza Apartments...")
+spa = rentalCompany.StudioPlazaApts()
+spa.updateData()
+print("#"*100)
+print(spa)
+print("#"*100)
+
+print("Setting data for Studio Plaza Apartments...")
+rentalPropData, rentalRentHist = spa.getDBData()
+rDataDB.setCompany("StudioPlazaApts")
+rHistoryDB.setCompany("StudioPlazaApts")
+rDataDB.insertListOfDataEntry(rentalPropData)
+rHistoryDB.insertListOfDataEntry(rentalRentHist)

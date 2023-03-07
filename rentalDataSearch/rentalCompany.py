@@ -8,6 +8,35 @@ import shutil
 from ._utils import RentalCompany
 from bs4 import BeautifulSoup as bs
 import requests
+import re
+
+
+# https://www.studioplazaapts.com/rates/
+class StudioPlazaApts(RentalCompany):
+    
+    def updateData(self) -> None:
+        """Overloads from baseclass
+            
+        """
+        data = []
+        
+        soup = bs(requests.get("https://www.studioplazaapts.com/rates/").content, "html.parser")
+        table = (soup.find_all("table", {"class": "rates"}))[0]
+        e = table.find_all("tr")
+        for i in range(1, len(e)):
+            r = []
+            r.append("StudioPlazaApts") # Rental Company
+            r.append(e[i].find_all("td")[0].text) # Address
+            r.append("-1") # Bed
+            r.append("-1") # Bath
+            r.append("-1") # Tenants
+            r.append("".join(re.findall(r'\d+', e[i].find_all("td")[1].text))) # Rent
+            r.append(datetime.now().strftime("%m/%d/%Y,%H:%M:%S")) #Date Scanned
+
+            data.append(r)
+        
+        self.data = data
+        super()._dataToDocFormat()
 
 # https://www.deanbrunner.com/property-listings/
 class DeanBrunner(RentalCompany):

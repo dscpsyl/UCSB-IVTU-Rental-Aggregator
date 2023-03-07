@@ -52,3 +52,4 @@ the option to change the structure of the DB. It can only read the structure and
 Currently the following sites are in development:
 * [Beach Town Rentals](https://www.beachtownrentals.com/)
 * [Dean Brunner](https://www.deanbrunner.com/)
+* [Studio Plaza Apartments](https://www.studioplazaapts.com/)
