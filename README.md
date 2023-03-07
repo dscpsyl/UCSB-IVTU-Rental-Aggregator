@@ -4,6 +4,8 @@ Data aggregator for IV / Goleta / Santa Barbara / UCSB (CA, USA) rentals from ma
 The only problem is that some method of aggregation is not completely fool-proof. If an upate
 to a website is made, the aggregator might need to be updated.
 
+In the future, this will be worked on in conjunction with ratemyivrental.com
+
 ## Database
 
 The data is stored in a mongoDB database that is persistent and can only be accessed by this 
