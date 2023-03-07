@@ -2,6 +2,7 @@
 from .Errors import InvalidDataShapeReceived
 import pandas as pd
 import pymongo as pm
+import re
 
 class RentalCompany:
     """The base class for all rental companies. It is used to store the data of the rental companies and provide
@@ -29,6 +30,18 @@ class RentalCompany:
             
         """
         pass
+    
+    def _formatRent(self, r: str) -> str:
+        """Formats the rent for database as the rent entry should just be numbers with no dollar signs or commas or anything else.
+
+        Args:
+            r (str): Unformatted rent
+
+        Returns:
+            str: Formatted rent
+        """
+        
+        return "".join(re.findall(r'\d+', r))
     
     def __repr__(self) -> str:
         """ Returns the raw data of the instance.

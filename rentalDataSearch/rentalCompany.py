@@ -30,7 +30,7 @@ class StudioPlazaApts(RentalCompany):
             r.append("-1") # Bed
             r.append("-1") # Bath
             r.append("-1") # Tenants
-            r.append("".join(re.findall(r'\d+', e[i].find_all("td")[1].text))) # Rent
+            r.append(self._formatRent(e[i].find_all("td")[1].text)) # Rent
             r.append(datetime.now().strftime("%m/%d/%Y,%H:%M:%S")) #Date Scanned
 
             data.append(r)
@@ -72,14 +72,13 @@ class DeanBrunner(RentalCompany):
         for p in propsRAW: # [Address | Bed/Bath | Tenants | Rent]
             entry = []
             time = datetime.now().strftime("%m/%d/%Y,%H:%M:%S")
-            # [Rental Company | Address | Bed | Bath | Tenants | Rent | Date Scanned]
-            entry.append("Dean Brunner")
-            entry.append(p[0])
-            entry.append(p[1][0])
-            entry.append(p[1][2])
-            entry.append(p[2])
-            entry.append(p[3])
-            entry.append(time)
+            entry.append("Dean Brunner") # Company
+            entry.append(p[0]) # Address
+            entry.append(p[1][0]) # Bed
+            entry.append(p[1][2]) # Bath
+            entry.append(p[2]) # Tenants
+            entry.append(self._formatRent(p[3])) # Rent 
+            entry.append(time) # Date Scanned
             
             data.append(entry)
         
@@ -126,6 +125,8 @@ class BeachTownRentals(RentalCompany):
         for rental in csvEntry:
             if rental[3] == '-':
                 rental[3] = "-1"
+            else:
+                rental[3] == self._formatRent(rental[3])
             data.append(["Beach Town Rentals", rental[0], rental[1], "-1", rental[2], rental[3], time])
         
         # Delete the computed files
