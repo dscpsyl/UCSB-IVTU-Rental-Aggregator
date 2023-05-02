@@ -40,6 +40,30 @@ class RentHistoryData(DatabaseConnectionMongoDB):
         Args:
             data (list): a list of dictionaries containing the data to be inserted.
             
+            The data should be in the following format:
+            
+            rental-data:
+                {
+                    "adddress" : "123 Main St",
+                    "beds" :  "2",
+                    "baths" : "2",
+                    "tenants" : "4",
+                    
+                }
+                
+            rental-history:
+                {
+                    "adddress" : "123 Main St",
+                    "history" : {
+                        //date : price
+                        "12/20/05" : "1050",
+                        "01/28/19" : "2400.78",
+                        //...
+                    }
+                }
+                
+            If a certain field is not found in the aggregation, it will be set to a string of -1. This is to make it easier to parse the data later on.
+            
         Raises:
             Exception: Will raise if the database is not rental-data or rental-history.
         """
